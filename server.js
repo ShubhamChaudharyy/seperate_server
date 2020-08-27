@@ -11,7 +11,7 @@ global["XMLHttpRequest"] = require("xmlhttprequest").XMLHttpRequest
 app.use(cors())
 var socket_id;
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://peercodingide.herokuapp.com/');
+    res.header('Access-Control-Allow-Origin', 'https://peercodingide.herokuapp.com');
     next();
 });
 const rooms=[]
