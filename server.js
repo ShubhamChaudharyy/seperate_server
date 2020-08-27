@@ -10,7 +10,10 @@ global["XMLHttpRequest"] = require("xmlhttprequest").XMLHttpRequest
 
 app.use(cors())
 var socket_id;
-var frontendUrl="http://localhost:3000"
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+});
 const rooms=[]
 var session_destroy=(chunk)=>{
     console.log(`Room has been disconnected`)
