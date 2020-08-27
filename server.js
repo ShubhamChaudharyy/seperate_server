@@ -4,17 +4,12 @@ const { v4: uuidv4 }=require(`uuid`)
 var cors=require('cors')
 const url=require('./constants')
 var socket=require('socket.io')
+const requestRoute=require('./Routes/requestRoute')
 const helper=require('./Routes/addUsers')
 var io=socket(server)
 global["XMLHttpRequest"] = require("xmlhttprequest").XMLHttpRequest
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", '*');
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-    next();
-});
+app.use(cors())
 var socket_id;
 const rooms=[]
 var session_destroy=(chunk)=>{
@@ -22,14 +17,7 @@ var session_destroy=(chunk)=>{
 }
 const video_rooms={}
 console.log(rooms)
-app.get('/room_creation/:room/:name',(req,res,next)=>{
-    if(rooms[req.params.room]){
-    return res.status(200).send('exist')
-    }    
-    rooms[req.params.room]=req.params.name
-    console.log(rooms)
-    return res.status(200).send('into route')
-})
+app.use('/room_creation/:room/:name',requestRoute)
 var newConnection=(socket)=>{
     console.log(socket.id)
     socket.on('join',(data,callback)=>{
