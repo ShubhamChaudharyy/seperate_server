@@ -7,7 +7,8 @@ const helper=require('./Routes/addUsers')
 
 global["XMLHttpRequest"] = require("xmlhttprequest").XMLHttpRequest
 const port=process.env.PORT || 5000
-var io=socket(port)
+const port2=process.env.PORT || 3000
+var io=socket(port2)
 app.use(cors())
 var socket_id;
 app.use((req, res, next) => {
