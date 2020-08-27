@@ -10,7 +10,11 @@ var io=socket(server)
 global["XMLHttpRequest"] = require("xmlhttprequest").XMLHttpRequest
 
 app.use((req, res, next) => {
-
+res.setHeader('Access-Control-Allow-Origin', "*");
+res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
+res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+next();
+})
 var socket_id;
 const rooms=[]
 var session_destroy=(chunk)=>{
@@ -18,11 +22,7 @@ var session_destroy=(chunk)=>{
 }
 const video_rooms={}
 console.log(rooms)
-res.setHeader('Access-Control-Allow-Origin', "*");
-res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
-res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-next();
-})
+
 app.use('/room_creation/:room/:name',requestRoute)
 var newConnection=(socket)=>{
     console.log(socket.id)
