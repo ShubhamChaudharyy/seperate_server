@@ -1,5 +1,4 @@
 const app = require('express')()
-const server = require('http').Server(app);
 const { v4: uuidv4 }=require(`uuid`)
 var cors=require('cors')
 const url=require('./constants')
@@ -7,7 +6,7 @@ var socket=require('socket.io')
 const helper=require('./Routes/addUsers')
 var io=socket(server)
 global["XMLHttpRequest"] = require("xmlhttprequest").XMLHttpRequest
-
+const port=process.env.PORT || 5000
 app.use(cors())
 var socket_id;
 app.use((req, res, next) => {
@@ -70,7 +69,7 @@ var newConnection=(socket)=>{
     });
 }
 io.sockets.on('connection',newConnection)
-server.listen(5000,()=>{
+server.listen(port,()=>{
     console.log('connection estabilished')
 })
 
