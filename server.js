@@ -4,9 +4,10 @@ var cors=require('cors')
 const url=require('./constants')
 var socket=require('socket.io')
 const helper=require('./Routes/addUsers')
-var io=socket(server)
+
 global["XMLHttpRequest"] = require("xmlhttprequest").XMLHttpRequest
 const port=process.env.PORT || 5000
+var io=socket(port)
 app.use(cors())
 var socket_id;
 app.use((req, res, next) => {
