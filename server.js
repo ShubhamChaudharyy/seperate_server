@@ -1,20 +1,15 @@
 const app = require('express')()
+const server = require('http').Server(app);
 const { v4: uuidv4 }=require(`uuid`)
 var cors=require('cors')
 const url=require('./constants')
 var socket=require('socket.io')
 const helper=require('./Routes/addUsers')
-
+var io=socket(server)
 global["XMLHttpRequest"] = require("xmlhttprequest").XMLHttpRequest
-const port=process.env.PORT || 5000
-const port2=process.env.PORT || 3000
-var io=socket(port2)
+
 app.use(cors())
 var socket_id;
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://peercodingide.herokuapp.com');
-    next();
-});
 const rooms=[]
 var session_destroy=(chunk)=>{
     console.log(`Room has been disconnected`)
@@ -71,7 +66,7 @@ var newConnection=(socket)=>{
     });
 }
 io.sockets.on('connection',newConnection)
-app.listen(port,()=>{
+server.listen(5000,()=>{
     console.log('connection estabilished')
 })
 
