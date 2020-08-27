@@ -70,7 +70,7 @@ var newConnection=(socket)=>{
     });
 }
 io.sockets.on('connection',newConnection)
-server.listen(port,()=>{
+app.listen(port,()=>{
     console.log('connection estabilished')
 })
 
